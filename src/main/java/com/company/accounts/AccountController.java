@@ -22,6 +22,7 @@ public class AccountController {
   private AtomicLong counter = new AtomicLong();
   @Autowired //Spring łączy ten element z Repo
   private AccountRepository accountRepository;
+  private AccountService accountService;
 
   @GetMapping("/accounts")
   public Collection<Account> getAllAccounts() {
@@ -32,10 +33,10 @@ public class AccountController {
   }
 
   @GetMapping("/account/{id}")
-  public Account getSpecificAccount(@PathVariable Long id) {
-    //Account testAccount = new Account(2L, "cheapAccount", BigDecimal.valueOf(14L));
-    //mapForAccounts.put(2L, testAccount);
-    return accountRepository.getAccount(id);
+    public Account getSpecificAccount(@PathVariable Long id) {
+      //Account testAccount = new Account(2L, "cheapAccount", BigDecimal.valueOf(14L));
+      //mapForAccounts.put(2L, testAccount);
+      return accountService.getSpecificAccount(id);
   }
 
   // dlaczego bez getterow wyskakiwal blad, przeciez nic nie pobieralem tylko tworzer nowe, metoda values w mapie
@@ -67,9 +68,14 @@ public class AccountController {
   }
 
   @PostMapping("/account")
-  public long addAccount(@RequestBody Account accountToAdd){
-    return accountRepository.addAccount(accountToAdd);
+  public long addAccount(@RequestBody AccountRequest accountRequest){ // zrobić accountRequest, zeby przychodzil request a nie obiekt Account
+    //metoda ktora bedzie konwertowac account Reqest na Account i ja tutaj zaimplementowac
+    return accountService.addAccount(accountRequest);
   }
+
+  //DOJSC DO MOMENTU ZEBY W ACCOUNTCONTROLLER WYRZUC REPO I ZAIMPLEMENTOWAC SERVICE!!!!!
+  //DODAC METODE ZMIEN KONTO, ABY W PARAMETRZE WYSŁAĆ CAŁY REQUEST Z ACCOUNT, A NIE POJEDYNCZE PARAMETRY JAK OPIS, SUMA PIENIEDZY
+  //WSTRZYKIWANIE PRZEZ KONSTRUKTOR - POCZYATAC I SPROBOWAC ZASTGOSOWAC W APCE - CHODZI o to zeby @Autowired zastapic konstruktorem
 
  /* @GetMapping("/getAllAccounts")
   public Account getAllAccounts() {

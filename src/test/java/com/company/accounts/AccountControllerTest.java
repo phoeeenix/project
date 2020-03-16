@@ -93,8 +93,8 @@ class AccountControllerTest {
   @Test
   public void testChangeAccountBalance() throws Exception {
     //given
-    Account testAccount = new Account(null, "mBank", BigDecimal.valueOf(100)); // czy potrzebne odwołanie do accountRepository?  addAccount ustawia id
-
+    Account testAccount = new Account(accountRepository.getId(), "mBank", BigDecimal.valueOf(100)); // czy potrzebne odwołanie do accountRepository?  addAccount ustawia id
+    //@BeforeEach - zrobic przed kazdym pusta baze, zeby przewidywac ID w tescie. Osobna klasa z accountHelper ktora ma stworoznych kilka kont, nie ma sensu tworzyc w beforeEach
     //when
     String response = mockmvc.perform(
         post("/account") // mockMVC działa jako stub, zatyczka, zaślepka? Wysyła reqesty - perform, ale nie są ona na stałe zapisywane w bazie, repo?
@@ -104,16 +104,17 @@ class AccountControllerTest {
     .andReturn().getResponse().getContentAsString();
     logger.info("Account no. " + response + " has been created.");
 
+    testAccount.setSumOfMoney(BigDecimal.valueOf(200));
     mockmvc.perform(put("/changeAccountBalance/" + response)
         .contentType(MediaType.APPLICATION_JSON)
-        .content(json(testAccount)))
+        .content(json(testAccount.getSumOfMoney()))) // tak dodac sama sume do zmiany?
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
 
     //then
-    mockmvc.perform(get("/account" + response))
+    mockmvc.perform(get("/account/" + response))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.sumOfMoney", is(response)))
+        .andExpect(jsonPath("$.sumOfMoney", is(200)))
     ;
   }
 
