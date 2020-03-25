@@ -73,6 +73,10 @@ public class AccountController {
     return accountService.deleteAccount(id);
   }
 
+  public Account convertAccountRequestToAccount(AccountRequest accountRequest) {
+    return Account
+  }
+
   //DOJSC DO MOMENTU ZEBY W ACCOUNTCONTROLLER WYRZUC REPO I ZAIMPLEMENTOWAC SERVICE!!!!!
   //DODAC METODE ZMIEN KONTO, ABY W PARAMETRZE WYSŁAĆ CAŁY REQUEST Z ACCOUNT, A NIE POJEDYNCZE PARAMETRY JAK OPIS, SUMA PIENIEDZY
   //WSTRZYKIWANIE PRZEZ KONSTRUKTOR - POCZYATAC I SPROBOWAC ZASTGOSOWAC W APCE - CHODZI o to zeby @Autowired zastapic konstruktorem

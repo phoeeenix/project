@@ -1,7 +1,14 @@
+buildscript {
+	ext {
+		lombokVersion = '1.18.12'
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.2.0.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
+
 }
 
 group = 'com.company'
@@ -17,6 +24,10 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+	annotationProcessor("org.projectlombok:lombok:1.18.12")
+	testAnnotation("org.projectlombok:lombok:1.18.12")
+	compileOnly("org.projectlombok:lombok:1.18.12")
+	testCompileOnly("org.projectlombok:lombok:1.18.12")
 }
 
 test {

@@ -2,6 +2,7 @@ package com.company.accounts;
 
 import java.math.BigDecimal;
 
+@Buil
 public class AccountRequest {
 
   String description;
