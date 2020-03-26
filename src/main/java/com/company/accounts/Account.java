@@ -1,7 +1,9 @@
 package com.company.accounts;
 
 import java.math.BigDecimal;
+import lombok.Builder;
 
+@Builder
 public class Account {
 
   Long id;

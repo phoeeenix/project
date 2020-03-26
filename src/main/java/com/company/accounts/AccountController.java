@@ -18,16 +18,21 @@ public class AccountController {
   private String content = "";
   // private Map<Long, Account> mapForAccounts = new HashMap<>();
   private AtomicLong counter = new AtomicLong();
-  @Autowired //Spring łączy ten element z Repo
-  private AccountRepository accountRepository;
+  //@Autowired //Spring łączy ten element z Repo
+  //private AccountRepository accountRepository;
   private AccountService accountService;
+  @Autowired
+  public AccountController(AccountService accountService) {
+    this.accountService = accountService;
+  }
 
   @GetMapping("/accounts")
   public Collection<Account> getAllAccounts() {
     // Account testAccount = new Account(1L, "cheapAccount", BigDecimal.valueOf(23L));
     // mapForAccounts.put(1L, testAccount); // dlaczego po wyniesieniu poza metode wyznacza bledy?
     // return mapForAccounts.values();
-    return accountService.getAccounts();
+    // return accountService.getAccounts();
+    return new AccountController(accountService).getAllAccounts(); //TODO Q:tak zmienić?
   }
 
   @GetMapping("/account/{id}")
@@ -41,9 +46,15 @@ public class AccountController {
   // pobiera? nested exception is com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class
 
   @PostMapping("/account")
-  public long addAccount(@RequestBody AccountRequest accountRequest) { // zrobić accountRequest, zeby przychodzil request a nie obiekt Account
+  public long addAccount(@RequestBody Account accountToBeAdded) { // zrobić accountRequest, zeby przychodzil request a nie obiekt Account
     //metoda ktora bedzie konwertowac account Reqest na Account i ja tutaj zaimplementowac
-    return accountService.addAccount(accountRequest);
+    return accountService.addAccount(accountToBeAdded);
+  }
+
+  @PostMapping("/accountRequest")
+  public long addAccount(@RequestBody AccountRequest accountRequestToBeAdded) { // zrobić accountRequest, zeby przychodzil request a nie obiekt Account
+    //metoda ktora bedzie konwertowac account Reqest na Account i ja tutaj zaimplementowac
+    return accountService.addAccountRequest(accountRequestToBeAdded);
   }
 
   @PutMapping("/changeAccountBalance/{id}")
@@ -55,12 +66,15 @@ public class AccountController {
   }
 
   @PutMapping("/changeDescriptionOfAccount/{id}")
-  public Account changeDescriptionOfAccount(@RequestBody Long id,
-      @RequestBody String description) { // why @RequestBody Long Id return error? "JSON parse error: Cannot deserialize instance of `java.lang.Long` out of START_OBJECT token; nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize instance of `java.lang.Long` out of START_OBJECT token\n at [Source: (PushbackInputStream); line: 1, column: 4]",
+  public Account changeDescriptionOfAccount(@RequestBody Long id, @RequestBody String description) { // why @RequestBody Long Id return error? "JSON parse error: Cannot deserialize instance of `java.lang.Long` out of START_OBJECT token; nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize instance of `java.lang.Long` out of START_OBJECT token\n at [Source: (PushbackInputStream); line: 1, column: 4]",
     //mapForAccounts.put(id, new Account(id, "cheapAccount", BigDecimal.valueOf(20L)));
     //mapForAccounts.get(id).setDescription(description);
     //return mapForAccounts.get(id);
     return accountService.changeDescriptionOfAccount(id, description);
+  }
+
+  public Account changeAccount(Long id, AccountRequest accountRequest){
+    return accountService.changeAccount(id, accountRequest);
   }
 
   @DeleteMapping("/account/{id}")
@@ -74,18 +88,14 @@ public class AccountController {
   }
 
   public Account convertAccountRequestToAccount(AccountRequest accountRequest) {
-    return Account
+    return Account.builder()
+        .description(accountRequest.getDescription())
+        .sumOfMoney(accountRequest.getSumOfMoney())
+        .build();
   }
 
-  //DOJSC DO MOMENTU ZEBY W ACCOUNTCONTROLLER WYRZUC REPO I ZAIMPLEMENTOWAC SERVICE!!!!!
-  //DODAC METODE ZMIEN KONTO, ABY W PARAMETRZE WYSŁAĆ CAŁY REQUEST Z ACCOUNT, A NIE POJEDYNCZE PARAMETRY JAK OPIS, SUMA PIENIEDZY
-  //WSTRZYKIWANIE PRZEZ KONSTRUKTOR - POCZYATAC I SPROBOWAC ZASTGOSOWAC W APCE - CHODZI o to zeby @Autowired zastapic konstruktorem
+  //Todo DOJSC DO MOMENTU ZEBY W ACCOUNTCONTROLLER WYRZUC REPO I ZAIMPLEMENTOWAC SERVICE!!!!!
+  //Todo DODAC METODE ZMIEN KONTO, ABY W PARAMETRZE WYSŁAĆ CAŁY REQUEST Z ACCOUNT, A NIE POJEDYNCZE PARAMETRY JAK OPIS, SUMA PIENIEDZY
+  //Todo WSTRZYKIWANIE PRZEZ KONSTRUKTOR - POCZYATAC I SPROBOWAC ZASTGOSOWAC W APCE - CHODZI o to zeby @Autowired zastapic konstruktorem
 
- /* @GetMapping("/getAllAccounts")
-  public Account getAllAccounts() {
-   return new Account(1L, "cheapAccount", BigDecimal.valueOf(23L));
-   // List<Account> listWithAllAccount = mapForAccounts.
-    //return mapForAccounts.values();
-  }
-*/
 }

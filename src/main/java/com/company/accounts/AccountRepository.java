@@ -37,9 +37,9 @@ public class AccountRepository {
     return accountToAdd.getId();
   }
 
-  public long addAccount(AccountRequest accountRequest) {
+  public long addAccountRequest(AccountRequest accountRequestToBeAdded) {
     long idForAccountRequestToAdd = getAndIncreaseIdNumber();
-    mapForAccounts.put(idForAccountRequestToAdd, accountRequest);
+    mapForAccounts.put(idForAccountRequestToAdd, convertAccountRequestToAccount(accountRequestToBeAdded));
     return idForAccountRequestToAdd;
   }
 
@@ -53,8 +53,8 @@ public class AccountRepository {
     return mapForAccounts.get(id);
   }
 
-  public Account changeAccount(AccountRequest accountRequest) {
-
+  public Account changeAccount(AccountRequest accountRequestForChange) {
+    return convertAccountRequestToAccount(accountRequestForChange);
   }
 
     public Account deleteAccount(long id){
@@ -62,4 +62,12 @@ public class AccountRepository {
       String returnStatement = "Account id " + id + " has been deleted.";
       return mapForAccounts.get(id);
     }
+
+  public Account convertAccountRequestToAccount(AccountRequest accountRequest) {
+    return Account.builder()
+        .description(accountRequest.getDescription())
+        .sumOfMoney(accountRequest.getSumOfMoney())
+        .build();
   }
+
+}
