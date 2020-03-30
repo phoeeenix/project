@@ -60,7 +60,7 @@ class AccountControllerTest {
         .contentType(MediaType.APPLICATION_JSON)
     );
     mockmvc.perform(post(
-        "/account") //TODO czy jest sposob wyslac w 1 requescie, stworzyc taki czy nie ma sensu? - stworzyc metode przyjmujaca liste kont i je tworzaca
+        "/account") //TODO czy jest sposob wyslac w 1 requescie, stworzyc tak czy nie ma sensu? - stworzyc metode przyjmujaca liste kont i je tworzaca
         .content(json(testAccount2))
         //.param(testAccount)
         .contentType(MediaType.APPLICATION_JSON)

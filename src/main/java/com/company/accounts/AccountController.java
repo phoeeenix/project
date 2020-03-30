@@ -24,7 +24,7 @@ public class AccountController {
   @Autowired
   public AccountController(AccountService accountService) {
     this.accountService = accountService;
-  }
+  } //Todo Q: dobrze? WSTRZYKIWANIE PRZEZ KONSTRUKTOR - POCZYATAC I SPROBOWAC ZASTGOSOWAC W APCE - CHODZI o to zeby @Autowired zastapic konstruktorem
 
   @GetMapping("/accounts")
   public Collection<Account> getAllAccounts() {
@@ -32,7 +32,7 @@ public class AccountController {
     // mapForAccounts.put(1L, testAccount); // dlaczego po wyniesieniu poza metode wyznacza bledy?
     // return mapForAccounts.values();
     // return accountService.getAccounts();
-    return new AccountController(accountService).getAllAccounts(); //TODO Q:tak zmienić?
+    return new AccountController(accountService).getAllAccounts(); // //Todo DOJSC DO MOMENTU ZEBY W ACCOUNTCONTROLLER WYRZUC REPO I ZAIMPLEMENTOWAC SERVICE!!!!!
   }
 
   @GetMapping("/account/{id}")
@@ -46,14 +46,13 @@ public class AccountController {
   // pobiera? nested exception is com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class
 
   @PostMapping("/account")
-  public long addAccount(@RequestBody Account accountToBeAdded) { // zrobić accountRequest, zeby przychodzil request a nie obiekt Account
+  public long addAccount(@RequestBody Account accountToBeAdded) { //Todo DODAC METODE ZMIEN KONTO, ABY W PARAMETRZE WYSŁAĆ CAŁY REQUEST Z ACCOUNT, A NIE POJEDYNCZE PARAMETRY JAK OPIS, SUMA PIENIEDZY
     //metoda ktora bedzie konwertowac account Reqest na Account i ja tutaj zaimplementowac
     return accountService.addAccount(accountToBeAdded);
   }
 
   @PostMapping("/accountRequest")
-  public long addAccount(@RequestBody AccountRequest accountRequestToBeAdded) { // zrobić accountRequest, zeby przychodzil request a nie obiekt Account
-    //metoda ktora bedzie konwertowac account Reqest na Account i ja tutaj zaimplementowac
+  public long addAccount(@RequestBody AccountRequest accountRequestToBeAdded) {
     return accountService.addAccountRequest(accountRequestToBeAdded);
   }
 
@@ -93,9 +92,5 @@ public class AccountController {
         .sumOfMoney(accountRequest.getSumOfMoney())
         .build();
   }
-
-  //Todo DOJSC DO MOMENTU ZEBY W ACCOUNTCONTROLLER WYRZUC REPO I ZAIMPLEMENTOWAC SERVICE!!!!!
-  //Todo DODAC METODE ZMIEN KONTO, ABY W PARAMETRZE WYSŁAĆ CAŁY REQUEST Z ACCOUNT, A NIE POJEDYNCZE PARAMETRY JAK OPIS, SUMA PIENIEDZY
-  //Todo WSTRZYKIWANIE PRZEZ KONSTRUKTOR - POCZYATAC I SPROBOWAC ZASTGOSOWAC W APCE - CHODZI o to zeby @Autowired zastapic konstruktorem
 
 }
