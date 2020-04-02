@@ -7,6 +7,9 @@ public class AccountRequest {
   String description;
   BigDecimal sumOfMoney;
 
+  public AccountRequest() {  //MUSI BYĆ PUSTY KONSUTRKOT ŻEBY JACKSON STWORZYŁ OBIEKT!!!
+  }
+
   public String getDescription() {
     return description;
   }

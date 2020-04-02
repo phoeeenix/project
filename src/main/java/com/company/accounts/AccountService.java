@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountService {
 
-  //@Autowired //niepotrzebny?
+  //@Autowired //Sprawdzi czy działa
   private AccountRepository accountRepository;
 
   @Autowired
-  public AccountService(AccountRepository accountRepository)  {
+  public AccountService(AccountRepository accountRepository) {
     this.accountRepository = accountRepository;
   }
 
@@ -28,9 +28,9 @@ public class AccountService {
     return accountRepository.addAccount(accountToAdd);
   }
 
-  public long addAccountRequest(AccountRequest accountRequestToAdd) {
+  /*public long addAccountRequest(AccountRequest accountRequestToAdd) {
     return accountRepository.addAccountRequest(accountRequestToAdd);
-  }
+  }*/
 
   public Account changeAccountBalance(long id, BigDecimal newBalance) {
     return accountRepository.changeAccountBalance(id, newBalance);
@@ -40,8 +40,8 @@ public class AccountService {
     return accountRepository.changeDescriptionOfAccount(id, description);
   }
 
-  public Account changeAccount(long id, AccountRequest accountRequestToBeChanged) {
-    return accountRepository.changeAccount(accountRequestToBeChanged);
+  public Account changeAccount(long id, Account accountToBeChanged) {
+    return accountRepository.changeAccount(id, accountToBeChanged);
   }
 
   public Account deleteAccount(long id) {
