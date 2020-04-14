@@ -56,6 +56,6 @@ public class Account {
   }
 
   public String toString(){
-    return String.format("Account[id = %d, description = '%s', sumOfMoney = %d]", id, description, sumOfMoney);
+    return String.format("Account[id = %d, description = '%s', sumOfMoney = %d]", id, description, sumOfMoney.intValue());
   }
 }
