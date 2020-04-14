@@ -1,11 +1,18 @@
 package com.company.accounts;
 
 import java.math.BigDecimal;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import lombok.Builder;
 
 @Builder
+@Entity
 public class Account {
 
+  @Id
+  @GeneratedValue(strategy= GenerationType.AUTO)
   Long id;
   String description;
   //Currency currency;
@@ -17,7 +24,12 @@ public class Account {
     this.sumOfMoney = sumOfMoney;
   }
 
-  public Account() {}
+  public Account(String description, BigDecimal sumOfMoney) {
+    this.description = description;
+    this.sumOfMoney = sumOfMoney;
+  }
+
+  public Account() {}  //TODO Question: Zmienic na protected jka w tutorialu JPA?
 
   public Long getId() {
     return id;
@@ -41,5 +53,9 @@ public class Account {
 
   public void setSumOfMoney(BigDecimal sumOfMoney) {
     this.sumOfMoney = sumOfMoney;
+  }
+
+  public String toString(){
+    return String.format("Account[id = %d, description = '%s', sumOfMoney = %d]", id, description, sumOfMoney);
   }
 }
