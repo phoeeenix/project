@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public class AccountRepository {
+//@Repository
+public class AccountRepositoryOld {
 
   private Map<Long, Account> mapForAccounts = new HashMap<>();
 
@@ -62,7 +62,5 @@ public class AccountRepository {
       String returnStatement = "Account id " + id + " has been deleted.";
       return mapForAccounts.get(id);
     }
-
-
 
 }

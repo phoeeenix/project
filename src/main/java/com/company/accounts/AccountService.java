@@ -2,50 +2,48 @@ package com.company.accounts;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService {
 
-  //@Autowired //Sprawdzi czy działa
-  private AccountRepository accountRepository;
+  private AccountRepositoryOld accountRepositoryOld;
+  private AccountRepositoryJPA accountRepositoryJPA;
 
   @Autowired
-  public AccountService(AccountRepository accountRepository) {
-    this.accountRepository = accountRepository;
+  public AccountService(AccountRepositoryJPA accountRepositoryJPA) {
+    this.accountRepositoryJPA = accountRepositoryJPA;
   }
 
   public Collection<Account> getAccounts() {
-    return accountRepository.getAccounts();
+    return accountRepositoryJPA.findAll();
   }
 
   public Account getAccount(long id) {
-    return accountRepository.getAccount(id);
+    return accountRepositoryJPA.findByIdIn(id);
   }
 
-  public long addAccount(Account accountToAdd) {
-    return accountRepository.addAccount(accountToAdd);
+  public Account addAccount(Account accountToAdd) {
+    return accountRepositoryJPA.save(accountToAdd);
   }
-
-  /*public long addAccountRequest(AccountRequest accountRequestToAdd) {
-    return accountRepository.addAccountRequest(accountRequestToAdd);
-  }*/
 
   public Account changeAccountBalance(long id, BigDecimal newBalance) {
-    return accountRepository.changeAccountBalance(id, newBalance);
+    return accountRepositoryOld.changeAccountBalance(id, newBalance);
   }
 
   public Account changeDescriptionOfAccount(long id, String description) {
-    return accountRepository.changeDescriptionOfAccount(id, description);
+    return accountRepositoryOld.changeDescriptionOfAccount(id, description);
   }
 
   public Account changeAccount(long id, Account accountToBeChanged) {
-    return accountRepository.changeAccount(id, accountToBeChanged);
+    return accountRepositoryOld.changeAccount(id, accountToBeChanged);
   }
 
-  public Account deleteAccount(long id) {
-    return accountRepository.deleteAccount(id);
+  public void deleteAccount(long id) {
+    accountRepositoryJPA.deleteById(id);
   }
 
 }

@@ -34,11 +34,11 @@ class AccountControllerTest {
   private AccountHelpers accountHelpers;
 
   //@Autowired
-  private AccountRepository accountRepository;
+  private AccountRepositoryOld accountRepositoryOld;
 
   @Autowired
-  public AccountControllerTest (AccountRepository accountRepository) {
-    this.accountRepository = accountRepository;
+  public AccountControllerTest (AccountRepositoryOld accountRepositoryOld) {
+    this.accountRepositoryOld = accountRepositoryOld;
   }
 
   Logger logger = Logger.getLogger("AccountControllerTestLogger");
@@ -109,7 +109,7 @@ class AccountControllerTest {
   @Test
   public void testChangeAccountBalance() throws Exception {
     //given
-    //Account testAccount = new Account(accountRepository.getId(), "mBank", BigDecimal.valueOf(100)); //TODO Question: czy potrzebne odwołanie do accountRepository?  addAccount ustawia id
+    //Account testAccount = new Account(accountRepositoryOld.getId(), "mBank", BigDecimal.valueOf(100)); //TODO Question: czy potrzebne odwołanie do accountRepositoryOld?  addAccount ustawia id
     Account testMbankAccountWithId3 = AccountTestProvider.testMbankAccountWithId3();
     //when
     String response = mockmvc.perform(

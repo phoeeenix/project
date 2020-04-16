@@ -1,6 +1,8 @@
 package com.company.accounts;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -31,7 +33,7 @@ public class AccountApplication {
 
       log.info("----------------");
 
-      Account accountWittId = accountRepositoryJPA.findById(1L);
+      Account accountWittId = accountRepositoryJPA.findByIdIn(1L);
       log.info("Account with id = " + accountWittId.getId() + " : " + accountWittId.toString());
 
       log.info("----------------");

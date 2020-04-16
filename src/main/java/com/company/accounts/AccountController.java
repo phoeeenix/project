@@ -2,6 +2,8 @@ package com.company.accounts;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +20,7 @@ public class AccountController {
   // private Map<Long, Account> mapForAccounts = new HashMap<>();
   private AtomicLong counter = new AtomicLong();
   //@Autowired //Spring łączy ten element z Repo
-  //private AccountRepository accountRepository;
+  //private AccountRepositoryOld accountRepository;
   private AccountService accountService;
   @Autowired
   public AccountController(AccountService accountService) {
@@ -36,7 +38,7 @@ public class AccountController {
   }
 
   @PostMapping("/account")
-  public long addAccount(@RequestBody AccountRequest accountRequestToBeAdded) {
+  public Account addAccount(@RequestBody AccountRequest accountRequestToBeAdded) {
     Account accountForService = convertAccountRequestToAccount(accountRequestToBeAdded);
     return accountService.addAccount(accountForService);
   }
@@ -58,9 +60,9 @@ public class AccountController {
   }
 
   @DeleteMapping("/account/{id}")
-  public Account deleteAccount(@PathVariable Long id) {  // why in request body only 2, not "id" = 2 ?
+  public void deleteAccount(@PathVariable Long id) {  // why in request body only 2, not "id" = 2 ?
     //String returnStatement = "Account id " + id + " has been deleted."; // "Account id = " + id " has been deleted."?
-    return accountService.deleteAccount(id);
+    accountService.deleteAccount(id);
   }
 
   public Account convertAccountRequestToAccount(AccountRequest accountRequest) {
