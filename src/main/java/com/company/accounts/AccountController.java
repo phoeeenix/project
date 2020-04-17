@@ -28,7 +28,7 @@ public class AccountController {
   } //po usunieciu AccountController - nie chodzi, NullPointerExpception dla metody post bo brak adnotacji do serwisu
 
   @GetMapping("/accounts")
-  public Collection<Account> getAllAccounts() {
+  public Iterable<Account> getAllAccounts() {
     return accountService.getAccounts(); //
   }
 
@@ -48,16 +48,16 @@ public class AccountController {
     accountService.changeAccountBalance(id, newBalance);
   }
 
-  @PutMapping("/changeDescriptionOfAccount/{id}")
-  public void changeDescriptionOfAccount(@RequestBody Long id, @RequestBody String description) {
-    accountService.changeDescriptionOfAccount(id, description);
+  @PutMapping("/changeAccountDescription/{id}")
+  public void changeAccountDescription(@PathVariable Long id, @RequestBody String newDescription) {
+    accountService.changeDescriptionOfAccount(id, newDescription);
   }
 
- /* @PutMapping("/account/{id}")
-  public Account changeAccount(@PathVariable Long id, @RequestBody AccountRequest accountRequest) {
+  @PutMapping("/account/{id}")
+  public void changeAccount(@PathVariable Long id, @RequestBody AccountRequest accountRequest) {
     Account accountForService = convertAccountRequestToAccount(accountRequest);
-    return accountService.changeAccount(id, accountForService);
-  }*/
+    accountService.changeAccount(id, accountForService);
+  }
 
   @DeleteMapping("/account/{id}")
   public void deleteAccount(@PathVariable Long id) {  // why in request body only 2, not "id" = 2 ?

@@ -1,3 +1,4 @@
+--class created for tutorial reasons
 DROP TABLE IF EXISTS accounts;
 
 CREATE TABLE account (

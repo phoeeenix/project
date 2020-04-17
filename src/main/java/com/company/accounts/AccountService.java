@@ -1,9 +1,9 @@
 package com.company.accounts;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AccountService {
@@ -17,7 +17,7 @@ public class AccountService {
     this.accountRepository = accountRepository;
   }*/
 
-  public Collection<Account> getAccounts() {
+  public Iterable<Account> getAccounts() {
     return accountRepository.findAll();
   }
 
@@ -33,13 +33,17 @@ public class AccountService {
     accountRepository.updateAccountBalance(newBalance, id);
   }
 
+
   public void changeDescriptionOfAccount(long id, String description) {
     accountRepository.updateAccountDescription(description, id);
   }
 
-/*  public Account changeAccount(long id, Account accountToBeChanged) {
-    return accountRepositoryOld.changeAccount(id, accountToBeChanged);
-  }*/
+  public void changeAccount(long id, Account newAccount) {
+    //Account accountFromDB = getAccount(id);
+    //accountRepository.updateAccount(id, newAccount);
+   changeAccountBalance(id, newAccount.getSumOfMoney());
+   changeDescriptionOfAccount(id, newAccount.getDescription());
+  }
 
   public void deleteAccount(long id) {
     accountRepository.deleteById(id);

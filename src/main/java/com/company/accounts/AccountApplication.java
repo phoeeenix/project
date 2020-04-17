@@ -16,7 +16,8 @@ public class AccountApplication {
 
   private static final Logger log = Logger.getLogger("AccountLogger"); //TODO zły typ gdy = LoggerFactory.getLogger(AccountApplication.class) jak w tutorialu JPA
 
-/*  @Bean //TODO Question: z czym to dokładnie jest powiązane?
+/*  method created for tutorial reason
+@Bean //TODO Question: z czym to dokładnie jest powiązane?
   public CommandLineRunner demo(AccountRepository accountRepository){
     return (args) -> {
       accountRepository.save(new Account("PKO bank", BigDecimal.valueOf(1000)));
