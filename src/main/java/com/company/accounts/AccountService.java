@@ -34,15 +34,13 @@ public class AccountService {
   }
 
 
-  public void changeDescriptionOfAccount(long id, String description) {
+  public void changeAccountDescription(long id, String description) {
     accountRepository.updateAccountDescription(description, id);
   }
 
   public void changeAccount(long id, Account newAccount) {
-    //Account accountFromDB = getAccount(id);
-    //accountRepository.updateAccount(id, newAccount);
-   changeAccountBalance(id, newAccount.getSumOfMoney());
-   changeDescriptionOfAccount(id, newAccount.getDescription());
+    newAccount.setID(id);
+   accountRepository.save(newAccount);
   }
 
   public void deleteAccount(long id) {

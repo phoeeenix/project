@@ -50,7 +50,7 @@ public class AccountController {
 
   @PutMapping("/changeAccountDescription/{id}")
   public void changeAccountDescription(@PathVariable Long id, @RequestBody String newDescription) {
-    accountService.changeDescriptionOfAccount(id, newDescription);
+    accountService.changeAccountDescription(id, newDescription);
   }
 
   @PutMapping("/account/{id}")
