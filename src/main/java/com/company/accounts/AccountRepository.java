@@ -10,11 +10,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AccountRepositoryJPA extends CrudRepository<Account, Long> {
+public interface AccountRepository extends CrudRepository<Account, Long> {
 
   List<Account> findAll();
-  Account findByIdIn(long id); //TODO Question: Optional<T> findById(ID id)?
-  //TODO Error Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountService' defined in file [C:\Users\pawel.beres\Documents\project\out\production\classes\com\company\accounts\AccountService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'accountRepositoryJPA': Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: Failed to create query for method public abstract java.util.List com.company.accounts.AccountRepositoryJPA.findAllById(java.util.List)! Operator SIMPLE_PROPERTY on id requires a scalar argument, found interface java.util.List in method public abstract java.util.List com.company.accounts.AccountRepositoryJPA.findAllById(java.util.List).
+  Account findById(long id); //TODO Question: Optional<T> findById(ID id)?
+  //TODO Error Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountService' defined in file [C:\Users\pawel.beres\Documents\project\out\production\classes\com\company\accounts\AccountService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'accountRepositoryJPA': Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: Failed to create query for method public abstract java.util.List com.company.accounts.AccountRepository.findAllById(java.util.List)! Operator SIMPLE_PROPERTY on id requires a scalar argument, found interface java.util.List in method public abstract java.util.List com.company.accounts.AccountRepository.findAllById(java.util.List).
   List<Account> findByDescription(String description);
   List<Account> findAllById(List<Account> listOfIds); //TODO Question: w parametrze ma być lista z id'kami?
   boolean existsById(long id);
@@ -26,7 +26,7 @@ public interface AccountRepositoryJPA extends CrudRepository<Account, Long> {
 
   @Modifying
   @Query("update Account account set account.descirption = :newBalance where account.id = :id")
-  void updateAccountBalance(@Param("newDescription") String description, @Param("id") long id);
+  void updateAccountDescription(@Param("newDescription") String description, @Param("id") long id);
 }
 
 /*

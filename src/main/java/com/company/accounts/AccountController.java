@@ -44,20 +44,20 @@ public class AccountController {
   }
 
   @PutMapping("/changeAccountBalance/{id}")
-  public Account changeAccountBalance(@PathVariable Long id, @RequestBody BigDecimal newBalance) {
-    return accountService.changeAccountBalance(id, newBalance);
+  public void changeAccountBalance(@PathVariable Long id, @RequestBody BigDecimal newBalance) {
+    accountService.changeAccountBalance(id, newBalance);
   }
 
   @PutMapping("/changeDescriptionOfAccount/{id}")
-  public Account changeDescriptionOfAccount(@RequestBody Long id, @RequestBody String description) {
-    return accountService.changeDescriptionOfAccount(id, description);
+  public void changeDescriptionOfAccount(@RequestBody Long id, @RequestBody String description) {
+    accountService.changeDescriptionOfAccount(id, description);
   }
 
-  @PutMapping("/account/{id}")
+ /* @PutMapping("/account/{id}")
   public Account changeAccount(@PathVariable Long id, @RequestBody AccountRequest accountRequest) {
     Account accountForService = convertAccountRequestToAccount(accountRequest);
     return accountService.changeAccount(id, accountForService);
-  }
+  }*/
 
   @DeleteMapping("/account/{id}")
   public void deleteAccount(@PathVariable Long id) {  // why in request body only 2, not "id" = 2 ?
