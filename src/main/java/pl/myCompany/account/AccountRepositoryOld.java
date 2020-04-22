@@ -1,21 +1,19 @@
-package com.company.accounts;
+package pl.myCompany.account;
 
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import org.springframework.stereotype.Repository;
 
 //@Repository
 public class AccountRepositoryOld {
 
   private Map<Long, Account> mapForAccounts = new HashMap<>();
+  private long id = 0;
 
   public long getId() {
     return id;
   }
-
-  private long id = 0;
 
   public long getAndIncreaseIdNumber() {
     long actualId = id;
@@ -57,10 +55,10 @@ public class AccountRepositoryOld {
     return mapForAccounts.put(id, accountForChange);
   }
 
-    public Account deleteAccount(long id){
-      mapForAccounts.remove(id);
-      String returnStatement = "Account id " + id + " has been deleted.";
-      return mapForAccounts.get(id);
-    }
+  public Account deleteAccount(long id) {
+    mapForAccounts.remove(id);
+    String returnStatement = "Account id " + id + " has been deleted.";
+    return mapForAccounts.get(id);
+  }
 
 }

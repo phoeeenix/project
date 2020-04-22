@@ -1,20 +1,16 @@
-package com.company.accounts;
-
-import java.math.BigDecimal;
 import java.util.logging.Logger;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class AccountApplication {
+public class AccountApplicationOld {
 
   public static void main(String[] args) {
-    SpringApplication.run(AccountApplication.class, args);
+    SpringApplication.run(AccountApplicationOld.class, args);
   }
 
-  private static final Logger log = Logger.getLogger("AccountLogger"); //TODO zły typ gdy = LoggerFactory.getLogger(AccountApplication.class) jak w tutorialu JPA
+  private static final Logger log = Logger
+      .getLogger("AccountLogger"); //TODO zły typ gdy = LoggerFactory.getLogger(AccountApplicationOld.class) jak w tutorialu JPA
 
 /*  method created for tutorial reason
 @Bean //TODO Question: z czym to dokładnie jest powiązane?
@@ -26,8 +22,8 @@ public class AccountApplication {
       accountRepository.save(new Account("Santander bank", BigDecimal.valueOf(2000)));
 
       log.info("List of all accounts:");
-      for (Account account: accountRepository.findAll()){
-        log.info(account.toString());
+      for (Account pl.myCompany.account: accountRepository.findAll()){
+        log.info(pl.myCompany.account.toString());
       }
 
       log.info("----------------");

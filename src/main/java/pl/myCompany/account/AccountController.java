@@ -1,10 +1,6 @@
-package com.company.accounts;
+package pl.myCompany.account;
 
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AccountController {
 
-  // private Map<Long, Account> mapForAccounts = new HashMap<>();
-  private AtomicLong counter = new AtomicLong();
-  //@Autowired //Spring łączy ten element z Repo
-  //private AccountRepositoryOld accountRepository;
   private AccountService accountService;
+
   @Autowired
   public AccountController(AccountService accountService) {
     this.accountService = accountService;

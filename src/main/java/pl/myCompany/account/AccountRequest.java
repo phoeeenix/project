@@ -1,4 +1,4 @@
-package com.company.accounts;
+package pl.myCompany.account;
 
 import java.math.BigDecimal;
 
@@ -10,24 +10,24 @@ public class AccountRequest {
   public AccountRequest() {  //MUSI BYĆ PUSTY KONSUTRKOT ŻEBY JACKSON STWORZYŁ OBIEKT!!!
   }
 
-  public String getDescription() {
-    return description;
+  public AccountRequest(String description, BigDecimal sumOfMoney) {
+    this.description = description;
+    this.sumOfMoney = sumOfMoney;
   }
 
-  public BigDecimal getSumOfMoney() {
-    return sumOfMoney;
+  public String getDescription() {
+    return description;
   }
 
   public void setDescription(String description) {
     this.description = description;
   }
 
-  public void setSumOfMoney(BigDecimal sumOfMoney) {
-    this.sumOfMoney = sumOfMoney;
+  public BigDecimal getSumOfMoney() {
+    return sumOfMoney;
   }
 
-  public AccountRequest(String description, BigDecimal sumOfMoney) {
-    this.description = description;
+  public void setSumOfMoney(BigDecimal sumOfMoney) {
     this.sumOfMoney = sumOfMoney;
   }
 

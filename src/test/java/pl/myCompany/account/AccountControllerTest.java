@@ -1,4 +1,4 @@
-package com.company.accounts;
+package pl.myCompany.account;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -28,20 +28,18 @@ import org.springframework.test.web.servlet.ResultActions;
 @AutoConfigureMockMvc
 class AccountControllerTest {
 
+  Logger logger = Logger.getLogger("AccountControllerTestLogger");
   @Autowired
   private MockMvc mockmvc;
   @Autowired
   private AccountHelpers accountHelpers;
-
   //@Autowired
   private AccountRepositoryOld accountRepositoryOld;
 
   @Autowired
-  public AccountControllerTest (AccountRepositoryOld accountRepositoryOld) {
+  public AccountControllerTest(AccountRepositoryOld accountRepositoryOld) {
     this.accountRepositoryOld = accountRepositoryOld;
   }
-
-  Logger logger = Logger.getLogger("AccountControllerTestLogger");
 
   protected String json(Object object) throws Exception { //konwertuje obiekt na json
     ObjectMapper mapper = new ObjectMapper();
@@ -55,13 +53,13 @@ class AccountControllerTest {
     Account testMilleniumAccountWithId2 = AccountTestProvider.testMilleniumAccountWithId2();
     //when
     mockMVCperformPostAccount(testPKOBankAccountWithId1);  //TODO Test nie przechodzi
-    /*mockmvc.perform(post("/account")
+    /*mockmvc.perform(post("/pl.myCompany.account")
         .content(json(testPKOBankAccountWithId1))
         //.param(testPKOBankAccountWithId1) //TODO Question: za pomocą gettera sprawdzamy sam parametr?
         .contentType(MediaType.APPLICATION_JSON)
     ); //TODO 56-61 wyciagnac do prywatnej metody i wtedy wywolac ja 2,3,10 razy DONE
     mockmvc.perform(post(
-        "/account") //TODO czy jest sposob wyslac w 1 requescie, stworzyc tak czy nie ma sensu? - stworzyc metode przyjmujaca liste kont i je tworzaca
+        "/pl.myCompany.account") //TODO czy jest sposob wyslac w 1 requescie, stworzyc tak czy nie ma sensu? - stworzyc metode przyjmujaca liste kont i je tworzaca
         .content(json(AccountTestProvider.testMilleniumAccountWithId2()))
         //.param(testAccount) //TODO Spróbować przetestować sam parametr
         .contentType(MediaType.APPLICATION_JSON)
@@ -73,7 +71,8 @@ class AccountControllerTest {
         //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
         //.andExpect(jsonPath("$").isEmpty())
         .andExpect(jsonPath("$[0].description", is(testPKOBankAccountWithId1.getDescription())))
-        .andExpect(jsonPath("$[1].description", is(testMilleniumAccountWithId2.getDescription()))) //TODO Q:czy musi byc id gdy tylko 1 obietk znajduje sie w mapie?
+        .andExpect(jsonPath("$[1].description",
+            is(testMilleniumAccountWithId2.getDescription()))) //TODO Q:czy musi byc id gdy tylko 1 obietk znajduje sie w mapie?
         .andExpect(jsonPath("$[0].sumOfMoney", is(testPKOBankAccountWithId1.getSumOfMoney().intValue())))
         .andExpect(jsonPath("$[1].sumOfMoney", is(21)));
   }
@@ -113,11 +112,12 @@ class AccountControllerTest {
     Account testMbankAccountWithId3 = AccountTestProvider.testMbankAccountWithId3();
     //when
     String response = mockmvc.perform(
-        post("/account") // TODO Question: mockMVC działa jako stub, zatyczka, zaślepka? Wysyła reqesty - perform, ale nie są ona na stałe zapisywane w bazie, repo?
+        post(
+            "/account") // TODO Question: mockMVC działa jako stub, zatyczka, zaślepka? Wysyła reqesty - perform, ale nie są ona na stałe zapisywane w bazie, repo?
             .contentType(MediaType.APPLICATION_JSON)
             .content(json(testMbankAccountWithId3)))
         .andExpect(status().isOk())
-    .andReturn().getResponse().getContentAsString();
+        .andReturn().getResponse().getContentAsString();
     logger.info("Account no. " + response + " has been created.");
 
     testMbankAccountWithId3.setSumOfMoney(BigDecimal.valueOf(200));
@@ -143,9 +143,10 @@ class AccountControllerTest {
     String response = mockmvc.perform(
         post("/account")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(json(testSantanderBankAccountWithId4)))  // TODO Question: gdy metoda delete z paramtetrem RequestBody wtedy informacja ze body is miising, ale test passed. Dlaczego?
+            .content(json(
+                testSantanderBankAccountWithId4)))  // TODO Question: gdy metoda delete z paramtetrem RequestBody wtedy informacja ze body is miising, ale test passed. Dlaczego?
         .andExpect(status().isOk())
-    .andReturn().getResponse().getContentAsString();
+        .andReturn().getResponse().getContentAsString();
     ;
 
     mockmvc.perform(delete("/account/" + response));
@@ -159,7 +160,7 @@ class AccountControllerTest {
         .andExpect(content().contentType(JSON_CONTENT_TYPE))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id", is(accountId.intValue())))
-        .andExpect(jsonPath("$.name", is(account.getName())))
-        .andExpect(jsonPath("$.balance", is(account.getBalance().toString())))`
+        .andExpect(jsonPath("$.name", is(pl.myCompany.account.getName())))
+        .andExpect(jsonPath("$.balance", is(pl.myCompany.account.getBalance().toString())))`
         .andExpect(jsonPath("$.userId").doesNotExist());*/
 }
