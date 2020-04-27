@@ -52,6 +52,8 @@ public class CategoryController {
   }
 
   public Category convertCategoryRequestToCategory(CategoryRequest categoryRequest) {
-    return Category.builder().name(categoryRequest.getName()).build();
+    return Category.builder().name(categoryRequest.getName())
+        .parentCategory(categoryRequest.getParentCategory())  //parentCtaegory jako typ Category?
+        .build();
   }
 }

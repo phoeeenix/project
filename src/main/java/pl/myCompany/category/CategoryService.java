@@ -32,6 +32,7 @@ public class CategoryService {
   public void changeCategory(long id, Category categoryFromController) {
     categoryFromController.setId(id);
     categoryFromController.setName(categoryFromController.getName());
+    categoryFromController.setParentCategory(categoryFromController.getParentCategory());
     categoryRepository.save(categoryFromController);
   }
 }
