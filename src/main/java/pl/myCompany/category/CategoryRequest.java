@@ -3,7 +3,7 @@ package pl.myCompany.category;
 public class CategoryRequest {
 
   private String name;
-  private Category parentCategory;
+  private Long parentCategoryId;
 
   public CategoryRequest() {
   }
@@ -12,9 +12,9 @@ public class CategoryRequest {
     this.name = name;
   }
 
-  public CategoryRequest(String name, Category parentCategory) {
+  public CategoryRequest(String name, Long parentCategoryId) {
     this.name = name;
-    this.parentCategory = parentCategory;
+    this.parentCategoryId = parentCategoryId;
   }
 
   public String getName() {
@@ -25,11 +25,11 @@ public class CategoryRequest {
     this.name = name;
   }
 
-  public Category getParentCategory() {
-    return parentCategory;
+  public Long getParentCategoryId() {
+    return parentCategoryId;
   }
 
-  public void setParentCategory(Category parentCategory) {
-    this.parentCategory = parentCategory;
+  public void setParentCategoryId(Long parentCategoryId) {
+    this.parentCategoryId = parentCategoryId;
   }
 }
