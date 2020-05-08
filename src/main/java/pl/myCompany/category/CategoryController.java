@@ -33,7 +33,7 @@ public class CategoryController {
     return categoryService.getCategoryById(id);
   }
 
-  @PostMapping("/category")
+  @PostMapping("/category")  //TODO Sometimes response is 200, sometimes error, why?
   public Category createCategory(@RequestBody CategoryRequest categoryRequest) {
     Category categoryForService = convertCategoryRequestToCategory(categoryRequest);
     return categoryService.createCategory(categoryForService);
@@ -64,10 +64,10 @@ public class CategoryController {
       System.out.println("The given Id already exists in database");
       return null;
     } else
-      return Category.builder().name(categoryRequest.getName())
+      return Category.builder().id(null)
+          .name(categoryRequest.getName())
           .parentCategory(parentCategoryId == null ? null : Category.builder().id(parentCategoryId).build())
           .build();
-
   }
 
   public List<Long> getParentCategoryIds() {

@@ -27,10 +27,10 @@ public class Category {
     this.parentCategory = parentCategory;
   }
 
-  public Category(Long id, String name) {
+ /* public Category(Long id, String name) {
     this.id = id;
     this.name = name;
-  }
+  }*/
 
   public Long getId() {
     return id;
