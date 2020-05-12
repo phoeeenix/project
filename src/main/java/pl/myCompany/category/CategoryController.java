@@ -33,7 +33,7 @@ public class CategoryController {
     return categoryService.getCategoryById(id);
   }
 
-  @PostMapping("/category")  //TODO Sometimes response is 200, sometimes error, why?
+  @PostMapping("/category")  //TODO Sometimes response is 200, sometimes error, why? !!!!!!!!!!!!!
   public Category createCategory(@RequestBody CategoryRequest categoryRequest) {
     Category categoryForService = convertCategoryRequestToCategory(categoryRequest);
     return categoryService.createCategory(categoryForService);

@@ -25,4 +25,14 @@ public class TransactionService {
   public Transaction createTransaction(Transaction transactionFromController) {
     return transcationRepository.save(transactionFromController);
   }
+
+  public void modifyTransaction(long id, Transaction newTransaction) {
+    Optional oldTransaction = transcationRepository.findById(id);  //TODO Question: Optional, żeby nie robić operacji na obiekcie z wartością NULL?
+    newTransaction.setId(id);
+    transcationRepository.save(newTransaction);
+  }
+
+  public void deleteTransaction(long id) {
+    transcationRepository.deleteById(id);
+  }
 }
