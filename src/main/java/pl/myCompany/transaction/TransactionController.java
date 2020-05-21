@@ -27,7 +27,7 @@ public class TransactionController {
   }
 
   @GetMapping("/transactions")
-  public ResponseEntity<Iterable<Transaction>> getTransactions() {
+  public ResponseEntity<List<Transaction>> getTransactions() {
     Iterable<Transaction> transactionsIterable = transactionService.getTransactions();
     Iterator<Transaction> transactionIterator = transactionsIterable.iterator();
     List<Transaction> transactionList = convertIterableToCollectionList(transactionIterator);
