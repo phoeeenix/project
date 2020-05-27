@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class AccountApplicationOld {
+  //TODO please remove if it is not needed anymore
 
   public static void main(String[] args) {
     SpringApplication.run(AccountApplicationOld.class, args);

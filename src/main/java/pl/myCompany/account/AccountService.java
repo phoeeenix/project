@@ -10,6 +10,7 @@ public class AccountService {
   //private AccountRepositoryOld accountRepositoryOld;
   @Autowired
   private AccountRepository accountRepository;
+  //TODO please inject dependencie via constructor
 
   /*@Autowired
   public AccountService(AccountRepository accountRepository) {
@@ -17,6 +18,7 @@ public class AccountService {
   }*/
 
   public Iterable<Account> getAccounts() {
+    //TODO We should return collection here not iterable
     return accountRepository.findAll();
   }
 

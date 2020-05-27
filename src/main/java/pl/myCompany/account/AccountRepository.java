@@ -14,13 +14,17 @@ public interface AccountRepository extends CrudRepository<Account, Long> {
 
   //List<Account> findAll(); nie implementuje tego ponownie, ponieważ jest w interfejsie
   Account findById(long id); //TODO Question: Optional<T> findById(ID id)?
+  //TODO You have this method already implemented no need to implement it again
 
   List<Account> findByDescription(String description);
+  //TODO please remove code which is not used
 
   //List<Account> findAllById(List<Account> listOfIds); //TODO Question: w parametrze ma być lista z id'kami?
   boolean existsById(long id);
+  //TODO You have this method already implemented no need to implement it again
 
   void delete(Account account);
+  //TODO You have this method already implemented no need to implement it again
 
   @Transactional
   @Modifying

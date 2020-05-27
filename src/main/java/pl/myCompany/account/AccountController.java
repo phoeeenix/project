@@ -15,6 +15,8 @@ public class AccountController {
 
   private AccountService accountService;
 
+  //TODO use ResponseEntity to return proper HTTP response codes
+
   @Autowired
   public AccountController(AccountService accountService) {
     this.accountService = accountService;
@@ -23,10 +25,12 @@ public class AccountController {
   @GetMapping("/accounts")
   public Iterable<Account> getAllAccounts() {
     return accountService.getAccounts(); //
+    //TODO we should receive collection here please change servce method to return e.g list not iterable
   }
 
   @GetMapping("/account/{id}")
   public Account getSpecificAccount(@PathVariable Long id) {
+    //TODO first we should check if account with provided id exist in db and return proper status if not
     return accountService.getAccount(id);
   }
 
@@ -38,16 +42,22 @@ public class AccountController {
 
   @PutMapping("/changeAccountBalance/{id}")
   public void changeAccountBalance(@PathVariable Long id, @RequestBody BigDecimal newBalance) {
+    //TODO update not change
+    //TODO first we should check if account with provided id exist in db and return proper status if not
     accountService.changeAccountBalance(id, newBalance);
   }
 
   @PutMapping("/changeAccountDescription/{id}")
   public void changeAccountDescription(@PathVariable Long id, @RequestBody String newDescription) {
+    //TODO update not change
+    //TODO first we should check if account with provided id exist in db and return proper status if not
     accountService.changeAccountDescription(id, newDescription);
   }
 
   @PutMapping("/account/{id}")
   public void changeAccount(@PathVariable Long id, @RequestBody AccountRequest accountRequest) {
+    //TODO update not change
+    //TODO first we should check if account with provided id exist in db and return proper status if not
     Account accountForService = convertAccountRequestToAccount(accountRequest);
     accountService.changeAccount(id, accountForService);
   }
@@ -55,6 +65,8 @@ public class AccountController {
   @DeleteMapping("/account/{id}")
   public void deleteAccount(@PathVariable Long id) {  // why in request body only 2, not "id" = 2 ?
     //String returnStatement = "Account id " + id + " has been deleted."; // "Account id = " + id " has been deleted."?
+    //TODO update not change
+    //TODO first we should check if account with provided id exist in db and return proper status if not
     accountService.deleteAccount(id);
   }
 

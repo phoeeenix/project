@@ -16,6 +16,7 @@ import lombok.Setter;
 public class Transaction {
 
   public Transaction() {
+    //TODO You can use lombok to generate constructors
   }
 
   public Transaction(Long id, String description, Long categoryId, LocalDate localDate, boolean isPlanned) {

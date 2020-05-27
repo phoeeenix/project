@@ -31,6 +31,7 @@ public class TransactionController {
     Iterable<Transaction> transactionsIterable = transactionService.getTransactions();
     Iterator<Transaction> transactionIterator = transactionsIterable.iterator();
     List<Transaction> transactionList = convertIterableToCollectionList(transactionIterator);
+    //TODO this iterable to list conversion should happen in service, there is also more cleaner way to change iterable to list using streams
     return ResponseEntity.ok(transactionList);
   }
 
@@ -44,6 +45,7 @@ public class TransactionController {
   public ResponseEntity<Optional<Transaction>> getTranscation(@PathVariable long id) {
     Optional<Transaction> transaction = transactionService.getTransaction(id);
     if (!transaction.isPresent()) {
+      //TODO please use isEmpty insted of isPresent. Like IJ suggest
       log.info("Transaction with id = {} was not found", id);
       return ResponseEntity.notFound().build();
     }
@@ -61,12 +63,15 @@ public class TransactionController {
         description(transactionRequest.getDescription())
         .categoryId(transactionRequest.getCategoryId())
         .localDate(transactionRequest.getLocalDate())
-        .isPlanned(transactionRequest.isPlanned()).build(); //TODO Question: isPlanned does not works, why there is no getter for that boolean type parameter? The name of the field in get method is "planned", why?
+        .isPlanned(transactionRequest.isPlanned()).build();
+    //TODO Question: isPlanned does not works, why there is no getter for that boolean type parameter? The name of the field in get method is "planned", why?
+    //There is getter for boolean field maybe is not named get.... but like in this case "planned". You can always use Refactor-> Delombok to check how lombok named methods etc
     return convertedTransaction;
   }
 
   @PutMapping("/transaction/{id}")
   public ResponseEntity<?> updateTransaction(@PathVariable long id, @RequestBody TransactionRequest transactionRequest) {
+    //TODO please first check if id exist in db and return proper code if not
     Transaction newTransaction = Transaction.builder()
         .description(transactionRequest.getDescription())
         .categoryId(transactionRequest.getCategoryId())

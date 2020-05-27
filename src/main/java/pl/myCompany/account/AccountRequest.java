@@ -3,6 +3,7 @@ package pl.myCompany.account;
 import java.math.BigDecimal;
 
 public class AccountRequest {
+  //TODO You can use lombok here
 
   String description;
   BigDecimal sumOfMoney;

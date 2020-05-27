@@ -17,6 +17,7 @@ public class Account {
   private String description;
   //Currency currency;
   private BigDecimal sumOfMoney;
+  //TODO I dont like "sumOfMoney" name it maybe "balance"
 
   public Account(Long id, String description, BigDecimal sumOfMoney) {
     this.id = id;
@@ -59,4 +60,6 @@ public class Account {
   public String toString() {
     return String.format("Account[id = %d, description = '%s', sumOfMoney = %d]", id, description, sumOfMoney.intValue());
   }
+
+  //TODO You can use lombok to generate getters setters and toString()
 }
