@@ -57,11 +57,12 @@ public class TransactionController {
   }
 
   private Transaction convertTranscationRequestToTransaction(TransactionRequest transactionRequest) {
-    Transaction convertedTransaction = Transaction.builder().
-        description(transactionRequest.getDescription())
+    Transaction convertedTransaction = Transaction.builder()
+        .description(transactionRequest.getDescription())
         .categoryId(transactionRequest.getCategoryId())
         .localDate(transactionRequest.getLocalDate())
-        .isPlanned(transactionRequest.isPlanned()).build(); //TODO Question: isPlanned does not works, why there is no getter for that boolean type parameter? The name of the field in get method is "planned", why?
+        .isPlanned(transactionRequest.isPlanned()) //TODO Question: isPlanned does not works, why there is no getter for that boolean type parameter? The name of the field in get method is "planned", why?
+        .build();
     return convertedTransaction;
   }
 
