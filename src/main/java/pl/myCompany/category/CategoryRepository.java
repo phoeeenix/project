@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface CategoryRepository extends CrudRepository<Category, Long> {
 
-  Category findById(long id);
-
   @Transactional
   @Modifying
   @Query("update Category category set category.name = :newName where category.id = :id")

@@ -73,7 +73,7 @@ class AccountControllerTest {
         .andExpect(jsonPath("$[0].description", is(testPKOBankAccountWithId1.getDescription())))
         .andExpect(jsonPath("$[1].description",
             is(testMilleniumAccountWithId2.getDescription()))) //TODO Q:czy musi byc id gdy tylko 1 obietk znajduje sie w mapie?
-        .andExpect(jsonPath("$[0].sumOfMoney", is(testPKOBankAccountWithId1.getSumOfMoney().intValue())))
+        .andExpect(jsonPath("$[0].sumOfMoney", is(testPKOBankAccountWithId1.getBalance().intValue())))
         .andExpect(jsonPath("$[1].sumOfMoney", is(21)));
   }
 
@@ -120,10 +120,10 @@ class AccountControllerTest {
         .andReturn().getResponse().getContentAsString();
     logger.info("Account no. " + response + " has been created.");
 
-    testMbankAccountWithId3.setSumOfMoney(BigDecimal.valueOf(200));
+    testMbankAccountWithId3.setBalance(BigDecimal.valueOf(200));
     mockmvc.perform(put("/changeAccountBalance/" + response)
         .contentType(MediaType.APPLICATION_JSON)
-        .content(json(testMbankAccountWithId3.getSumOfMoney()))) //TODO Question: tak pobrać parametr czy przy pomocy .param ?
+        .content(json(testMbankAccountWithId3.getBalance()))) //TODO Question: tak pobrać parametr czy przy pomocy .param ?
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
 

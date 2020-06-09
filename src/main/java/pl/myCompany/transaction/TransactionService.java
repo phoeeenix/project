@@ -1,6 +1,13 @@
 package pl.myCompany.transaction;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +21,13 @@ public class TransactionService {
     this.transcationRepository = transcationRepository;
   }
 
-  public Iterable<Transaction> getTransactions() {
-    return transcationRepository.findAll();
+  public List<Transaction> getTransactions() {
+    Iterable<Transaction> transactionsIterable = transcationRepository.findAll();
+    Iterator<Transaction> transactionIterator = transactionsIterable.iterator();
+    //List<Transaction> transactionList = convertIterableToCollectionList(transactionIterator);
+    List<Transaction> transactionList = StreamSupport.stream(Spliterators.spliteratorUnknownSize(transactionIterator, Spliterator.ORDERED), false)
+        .collect(Collectors.toList());
+    return transactionList;
   }
 
   public Optional<Transaction> getTransaction(long id) {
@@ -34,5 +46,11 @@ public class TransactionService {
 
   public void deleteTransaction(long id) {
     transcationRepository.deleteById(id);
+  }
+
+  private List<Transaction> convertIterableToCollectionList(Iterator<Transaction> transactions) {
+    List<Transaction> transactionList = new ArrayList<>();
+    transactions.forEachRemaining(transactionList::add);
+    return transactionList;
   }
 }

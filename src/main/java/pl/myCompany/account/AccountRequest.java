@@ -1,7 +1,11 @@
 package pl.myCompany.account;
 
 import java.math.BigDecimal;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class AccountRequest {
 
   String description;
@@ -12,22 +16,6 @@ public class AccountRequest {
 
   public AccountRequest(String description, BigDecimal sumOfMoney) {
     this.description = description;
-    this.sumOfMoney = sumOfMoney;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public BigDecimal getSumOfMoney() {
-    return sumOfMoney;
-  }
-
-  public void setSumOfMoney(BigDecimal sumOfMoney) {
     this.sumOfMoney = sumOfMoney;
   }
 
