@@ -5,14 +5,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Entity
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Category {
 
   @Id
@@ -22,14 +24,14 @@ public class Category {
   @ManyToOne
   private Category parentCategory;
 
-  public Category() {
-  }
+/*  public Category() {
+  }*/
 
-  public Category(Long id, String name, Category parentCategory) {
+/*  public Category(Long id, String name, Category parentCategory) {
     this.id = id;
     this.name = name;
     this.parentCategory = parentCategory;
-  }
+  }*/
 
  /* public Category(Long id, String name) {
     this.id = id;

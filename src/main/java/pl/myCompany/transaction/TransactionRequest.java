@@ -1,10 +1,9 @@
 package pl.myCompany.transaction;
 
 import java.time.LocalDate;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
+@Data
 public class TransactionRequest {
 
   private Long id;

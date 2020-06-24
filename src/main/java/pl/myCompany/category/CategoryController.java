@@ -34,7 +34,7 @@ public class CategoryController {
   }
 
   @GetMapping("/category/{id}")
-  public ResponseEntity<Optional<Category>> getCategoryById(@PathVariable long id) {
+  public ResponseEntity<?> getCategoryById(@PathVariable long id) {
     ResponseEntity<Optional<Category>> response = checkIfCategoryExists(id);
     if (response.equals(ResponseEntity.notFound().build())) {
       return response;

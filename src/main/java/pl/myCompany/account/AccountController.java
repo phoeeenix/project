@@ -31,7 +31,7 @@ public class AccountController {
   }
 
   @GetMapping("/account/{id}")
-  public ResponseEntity<Optional<Account>> getSpecificAccount(@PathVariable Long id) {
+  public ResponseEntity<?> getSpecificAccount(@PathVariable Long id) {
     ResponseEntity<Optional<Account>> response = checkIfAccountExists(id);
     if (response.equals(ResponseEntity.notFound().build())) {
       return response;
@@ -72,7 +72,7 @@ public class AccountController {
       return response;
     }
     Account accountForService = convertAccountRequestToAccount(accountRequest);
-    accountService.changeAccount(id, accountForService);
+    accountService.updateAccount(id, accountForService);
     return ResponseEntity.ok().build();
   }
 

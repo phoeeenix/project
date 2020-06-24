@@ -5,17 +5,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Builder
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Transaction {
 
-  public Transaction() {
+/*  public Transaction() {
   }
 
   public Transaction(Long id, String description, Long categoryId, LocalDate localDate, boolean isPlanned) {
@@ -24,7 +26,7 @@ public class Transaction {
     this.categoryId = categoryId;
     this.localDate = localDate;
     this.isPlanned = isPlanned;
-  }
+  }*/
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

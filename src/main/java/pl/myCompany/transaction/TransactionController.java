@@ -5,9 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,9 +39,9 @@ public class TransactionController {
   }
 
   @GetMapping("/transaction/{id}")
-  public ResponseEntity<Optional<Transaction>> getTranscation(@PathVariable long id) {
+  public ResponseEntity<?> getTranscation(@PathVariable long id) {
     Optional<Transaction> transaction = transactionService.getTransaction(id);
-    if (!transaction.isPresent()) {
+    if (transaction.isEmpty()) {
       log.info("Transaction with id = {} was not found", id);
       return ResponseEntity.notFound().build();
     }
@@ -68,6 +66,11 @@ public class TransactionController {
 
   @PutMapping("/transaction/{id}")
   public ResponseEntity<?> updateTransaction(@PathVariable long id, @RequestBody TransactionRequest transactionRequest) {
+    Optional<Transaction> transaction = transactionService.getTransaction(id);
+    if (transaction.isEmpty()) {
+      log.info("Transaction with id = {} was not found", id);
+      return ResponseEntity.notFound().build();
+    }
     Transaction newTransaction = Transaction.builder()
         .description(transactionRequest.getDescription())
         .categoryId(transactionRequest.getCategoryId())

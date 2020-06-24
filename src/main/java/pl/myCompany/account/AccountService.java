@@ -46,7 +46,7 @@ public class AccountService {
     accountRepository.updateAccountDescription(description, id);
   }
 
-  public void changeAccount(long id, Account newAccount) {
+  public void updateAccount(long id, Account newAccount) {
     newAccount.setId(id);
     accountRepository.save(newAccount);
   }
