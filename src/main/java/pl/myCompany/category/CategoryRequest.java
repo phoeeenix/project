@@ -1,5 +1,8 @@
 package pl.myCompany.category;
 
+import lombok.Data;
+
+@Data
 public class CategoryRequest {
 
   private String name;
@@ -8,9 +11,11 @@ public class CategoryRequest {
   public CategoryRequest() {
   }
 
+/*
   public CategoryRequest(String name) {
     this.name = name;
   }
+*/
 
   public CategoryRequest(String name, Long parentCategoryId) {
     this.name = name;

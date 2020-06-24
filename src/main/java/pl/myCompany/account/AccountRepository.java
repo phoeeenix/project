@@ -12,19 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface AccountRepository extends CrudRepository<Account, Long> {
 
-  //List<Account> findAll(); nie implementuje tego ponownie, ponieważ jest w interfejsie
-  Account findById(long id); //TODO Question: Optional<T> findById(ID id)?
-
-  List<Account> findByDescription(String description);
-
   //List<Account> findAllById(List<Account> listOfIds); //TODO Question: w parametrze ma być lista z id'kami?
-  boolean existsById(long id);
-
-  void delete(Account account);
 
   @Transactional
   @Modifying
-  @Query("update Account account set account.sumOfMoney = :newBalance where account.id = :id")
+  @Query("update Account account set account.balance = :newBalance where account.id = :id")
   void updateAccountBalance(@Param("newBalance") BigDecimal newBalance, @Param("id") long id);
 
   @Transactional // inaczej wyrzuca error javax.persistence.TransactionRequiredException: Executing an update/delete query

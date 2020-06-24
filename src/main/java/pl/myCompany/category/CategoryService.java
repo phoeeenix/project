@@ -1,7 +1,17 @@
 package pl.myCompany.category;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pl.myCompany.account.Account;
+import pl.myCompany.transaction.Transaction;
 
 @Service
 public class CategoryService {
@@ -9,11 +19,19 @@ public class CategoryService {
   @Autowired
   private CategoryRepository categoryRepository;
 
-  public Iterable<Category> getCategories() {
-    return categoryRepository.findAll();
+  public CategoryService(CategoryRepository categoryRepository) {
+    this.categoryRepository = categoryRepository;
   }
 
-  public Category getCategoryById(long id) {
+  public List<Category> getCategories() {
+    Iterable<Category> categoriesIterable = categoryRepository.findAll();
+    Iterator<Category> categoryIterator = categoriesIterable.iterator();
+    List<Category> categoriesList = StreamSupport.stream(Spliterators.spliteratorUnknownSize(categoryIterator, Spliterator.ORDERED), false)
+        .collect(Collectors.toList());
+    return categoriesList;
+  }
+
+  public Optional<Category> getCategoryById(long id) {
     return categoryRepository.findById(id);
   }
 
@@ -33,4 +51,7 @@ public class CategoryService {
     categoryFromController.setId(id);
     categoryRepository.save(categoryFromController);
   }
+
+
+
 }

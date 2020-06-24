@@ -1,26 +1,36 @@
 package pl.myCompany.account;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService {
 
-  //private AccountRepositoryOld accountRepositoryOld;
   @Autowired
   private AccountRepository accountRepository;
 
-  /*@Autowired
+  @Autowired
   public AccountService(AccountRepository accountRepository) {
     this.accountRepository = accountRepository;
-  }*/
-
-  public Iterable<Account> getAccounts() {
-    return accountRepository.findAll();
   }
 
-  public Account getAccount(long id) {
+  public List<Account> getAccounts() {
+    Iterable<Account> accountsIterable = accountRepository.findAll();
+    Iterator<Account> accountIterator = accountsIterable.iterator();
+    List<Account> accountsList = StreamSupport.stream(Spliterators.spliteratorUnknownSize(accountIterator, Spliterator.ORDERED), false)
+        .collect(Collectors.toList());
+    return accountsList;
+  }
+
+  public Optional<Account> getAccount(long id) {
     return accountRepository.findById(id);
   }
 
@@ -36,8 +46,8 @@ public class AccountService {
     accountRepository.updateAccountDescription(description, id);
   }
 
-  public void changeAccount(long id, Account newAccount) {
-    newAccount.setID(id);
+  public void updateAccount(long id, Account newAccount) {
+    newAccount.setId(id);
     accountRepository.save(newAccount);
   }
 

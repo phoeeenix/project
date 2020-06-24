@@ -7,6 +7,8 @@ import java.util.Map;
 
 //@Repository
 public class AccountRepositoryOld {
+  //TODO please remove code which is not used
+  // I will remove that class after tests done
 
   private Map<Long, Account> mapForAccounts = new HashMap<>();
   private long id = 0;
@@ -30,7 +32,7 @@ public class AccountRepositoryOld {
   }
 
   public long addAccount(Account accountToAdd) {
-    accountToAdd.setID(getAndIncreaseIdNumber());
+    accountToAdd.setId(getAndIncreaseIdNumber());
     mapForAccounts.put(accountToAdd.getId(), accountToAdd);
     return accountToAdd.getId();
   }
@@ -42,7 +44,7 @@ public class AccountRepositoryOld {
   }*/
 
   public Account changeAccountBalance(long id, BigDecimal newBalance) {
-    mapForAccounts.get(id).setSumOfMoney(newBalance);
+    mapForAccounts.get(id).setBalance(newBalance);
     return mapForAccounts.get(id);
   }
 
